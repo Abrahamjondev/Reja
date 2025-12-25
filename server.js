@@ -15,16 +15,13 @@ app.set("views", "views");
 app.set("view engine", "ejs");
 
 //4 ROUTING CODES
-app.get("/HELLO", function (req, res) {
-  res.end(
-    '<h1>Hello world from UZBEKISTAN!</h1>'
-  );
+app.post("/create-item", (req, res) => {
+  console.log(req.body);
+  res.json ({ test: "success" });
+  // Ma'lumotlarni qabul qilish
 });
-
-app.get("/Gift", function (req, res) {
-  res.end(
-    '<h1>Siz sovgalar sahifasidasiz!</h1>'
-  );
+app.get("/", function (req, res) {
+  res.render("harid");
 });
 
 const server = http.createServer(app);
