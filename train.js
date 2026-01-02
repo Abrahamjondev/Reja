@@ -10,6 +10,7 @@ function countDigit(a){
     return count;
 }
 console.log(countDigit("ad2a54y79wet0sfgb9"));
+
 // function countLetter(letter, word) {
 //   let count = 0;
 
