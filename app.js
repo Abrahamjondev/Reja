@@ -126,7 +126,7 @@ const app = express();
 
 //Calling MongoDB
 const db = require("./server").db();
-
+const mongodb = require("mongodb");
 //1 KIRISH CODE
 app.use(express.static("public"));
 app.use(express.json());
@@ -139,20 +139,6 @@ app.set("views", "views");
 app.set("view engine", "ejs");
 
 //4 ROUTING CODES
-app.get("/", function (req, res) {
-  console.log("user entered to here /");
-  db.collection("plans")
-    .find()
-    .toArray((err, data) => {
-      if (err) {
-        console.log(err);
-        res.end("something went wrong!");
-      } else {
-        console.log(data);
-        res.render("reja", { items: data });
-      }
-    });
-});
 
 app.post("/create-item", (req, res) => {
   console.log("user entered here to /create-item");
@@ -168,6 +154,43 @@ app.post("/create-item", (req, res) => {
     //   res.end("successfully added");
     // }
   });
+});
+
+// app.post("/delete-item", (req, res) => {
+//   const id = req.body.id;
+//   db.collection("plans").deleteOne(
+//     { _id: new mongodb.Objectid(id) },
+//     function (err, data) {
+//       res.json({ state: "success" });
+//     }
+//   );
+// });
+app.post("/delete-item", (req, res) => {
+  const id = req.body.id;
+
+  db.collection("plans").deleteOne(
+    { _id: new mongodb.ObjectId(id) },
+    () => {
+      res.json({ state: "success" });
+    }
+  );
+});
+
+
+
+app.get("/", function (req, res) {
+  console.log("user entered to here /");
+  db.collection("plans")
+    .find()
+    .toArray((err, data) => {
+      if (err) {
+        console.log(err);
+        res.end("something went wrong!");
+      } else {
+        console.log(data);
+        res.render("reja", { items: data });
+      }
+    });
 });
 
 module.exports = app;
