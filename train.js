@@ -1,15 +1,40 @@
 // //MIT TASK
-//TASK B
-function countDigit(a){
-    let count = 0;
-    for(let char of a){
-        if(char >= '0' && char <= '9'){
-            count ++;
-        }
-    }
-    return count;
+//TASK C
+const moment = require("moment");
+const date = moment().format("h:mm:ss a");
+class Shop {
+  constructor(non, lagmon, cola) {
+    this.non = non;
+    this.lagmon = lagmon;
+    this.cola = cola;
+  }
+
+  qoldiq() {
+    return `Hozir ${date} da: bizda ${this.non}ta non, ${this.lagmon}ta lagmon va ${this.cola}ta cola qoldi`;
+  }
+  sotish(mahsulot, soni) {
+    return (this[mahsulot] -= soni);
+  }
+  qabul(mahsulot, soni) {
+    return (this[mahsulot] += soni);
+  }
 }
-console.log(countDigit("ad2a54y79wet0sfgb9"));
+
+const shop = new Shop(4, 5, 2);
+console.log(shop.sotish("non", 3));
+console.log(shop.qabul("cola", 4));
+console.log(shop.qoldiq());
+//TASK B
+// function countDigit(a){
+//     let count = 0;
+//     for(let char of a){
+//         if(char >= '0' && char <= '9'){
+//             count ++;
+//         }
+//     }
+//     return count;
+// }
+// console.log(countDigit("ad2a54y79wet0sfgb9"));
 
 // function countLetter(letter, word) {
 //   let count = 0;
