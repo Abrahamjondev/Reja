@@ -14,9 +14,10 @@ function checkContent(str1, str2) {
 
   return string1 === string2
 }
-
+//call
 console.log(checkContent("mitgroup", "gmtiprou")); 
-console.log(checkContent("nodemon", "express"));      
+console.log(checkContent("nodemon", "express"));    
+console.log(checkContent("done", "odne"));   
 
 // //TASK C
 // //MITASK-C
