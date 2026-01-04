@@ -1,52 +1,3 @@
-// console.log("Web serverni boshlash");
-// const express = require("express");
-// // const res = require("express/lip/reponse");
-// const app = express();
-
-// // mongodb chaqirish
-
-// const db = require("./server").db();
-
-// // const fs = require("fs");
-// // let user;
-// // fs.readFile("database/user.json", "utf-8", (err, data) => {
-// //   if (err) {
-// //     console.log("ERROR:", err);
-// //   } else {
-// //     user = JSON.parse(data);
-// //   }
-// // });
-
-// //1 KIRISH CODES. kirish malumotlarga bogliq bolgan kodlar yoziladi
-// app.use(express.static("public"));
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-// //2 session CODES
-
-// //3 VIEWS CODES
-// app.set("views", "views");
-// app.set("view engine", "ejs");
-
-// //4 ROUTING CODES
-// app.post("/create-item", (req, res) => {
-//   // console.log(req.body);
-//   // res.json({ test: "success" });
-//   // Ma'lumotlarni qabul qilish
-// });
-// // app.get("/auther", (req, res) => {
-// //   res.render("auther", { user: user });
-// // });
-// app.get("/", function (req, res) {
-//   res.render("reja");
-// });
-
-// module.exports = app;
-
-//
-//
-
-//
 // console.log("Web Serverni Boshlash");
 // const { log } = require("console");
 // const express = require("express");
@@ -113,12 +64,7 @@
 // // });
 
 // module.exports = app;
-///
-//
 
-//
-
-//
 console.log("Web serverni boshlash");
 const express = require("express");
 const app = express();
@@ -149,28 +95,33 @@ app.post("/create-item", (req, res) => {
     res.json(data.ops[0]);
   });
 });
-
-// app.post("/delete-item", (req, res) => {
-//   const id = req.body.id;
-//   db.collection("plans").deleteOne(
-//     { _id: new mongodb.Objectid(id) },
-//     function (err, data) {
-//       res.json({ state: "success" });
-//     }
-//   );
-// });
 app.post("/delete-item", (req, res) => {
   const id = req.body.id;
 
-  db.collection("plans").deleteOne(
-    { _id: new mongodb.ObjectId(id) },
-    () => {
+  db.collection("plans").deleteOne({ _id: new mongodb.ObjectId(id) }, () => {
+    res.json({ state: "success" });
+  });
+});
+
+app.post("/edit-item", (req, res) => {
+  const data = req.body;
+  console.log(data);
+  db.collection("plans").findOneAndUpdate(
+    { _id: new mongodb.ObjectId(data.id) },
+    { $set: { reja: data.new_input } },
+    function (err, data) {
       res.json({ state: "success" });
     }
   );
 });
 
-
+app.post("/delete-all", (req, res) => {
+  if (req.body.delete_all) {
+    db.collection("plans").deleteMany(function () {
+      res.json({ state: "ALL PLANS DELETED" });
+    });
+  }
+});
 
 app.get("/", function (req, res) {
   console.log("user entered to here /");
